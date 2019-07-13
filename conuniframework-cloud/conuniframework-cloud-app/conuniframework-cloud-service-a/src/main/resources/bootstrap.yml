@@ -1,0 +1,49 @@
+server:
+  port: 8180
+  context-path: /s
+  servlet:
+    session:
+      cookie:
+        name: OAUTH2_CLIENT_SESSION
+  name: service-a
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: service-a
+  cloud:
+    qqconfig:
+      discovery:
+        enabled: false
+      uri: http://com.github.zengfr.conuniframework.cloud.service.config:8888
+      fail-fast: true
+      username: user
+      password: ${CONFIG_SERVER_PASSWORD:password}
+      retry:
+        initial-interval: 2000
+        max-interval: 10000
+        multiplier: 2
+        max-attempts: 10
+management:
+  security:
+    enabled: false
+endpoints:
+  refresh:
+    enabled: true
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      client-id: client3
+      client-secret: 12345678
+      grant-type: authorization_code,client_credentials
+      scope: all
+      user-authorization-uri: http://auth:5000/oauth/authorize
+      access-token-uri: http://auth:5000/oauth/token
+    resource:
+      id: client3
+      token-info-uri: http://auth:5000/oauth/check_token
+      user-info-uri: http://auth:5000/auth/user/me
+    authorization:
+      check-token-access: http://auth:5000/oauth/check_token

@@ -1,0 +1,24 @@
+server:
+  port: 8761
+spring:
+  zipkin:
+    baseUrl: http://1270.0.0.1:9411/
+  boot:
+    admin:
+      client:
+        url: http://localhost:8080
+eureka:
+  instance:
+    hostname: registry
+    prefer-ip-address: true
+    nonSecurePort: ${server.port}
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    service-url:
+      defaultZone: http://${security.user.name}:${security.user.password}@${eureka.instance.hostname}:${server.port}/eureka
+
+security:
+  user:
+    name: user
+    password: ${REGISTRY_SERVER_PASSWORD:password}

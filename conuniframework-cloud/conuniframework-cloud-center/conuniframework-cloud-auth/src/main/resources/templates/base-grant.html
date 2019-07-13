@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Spring Cloud Administrator</title>
+</head>
+<body>
+<nav th:replace="include/header :: header"></nav>
+<div id="main" class="container">
+
+    <div class="title">
+        <div class="title-right">OAUTH-BOOT 授权</div>
+        <div class="title-left">
+            <a href="javascript:;">帮助</a>
+        </div>
+    </div>
+    <h3 th:text="${clientId}+' 请求授权，该应用将获取您的以下信息'"></h3>
+    <p>昵称，头像和性别</p>
+    授权后表明您已同意 <a  href="javascript:;" style="color: #E9686B">OAUTH-BOOT 服务协议</a>
+    <form method="post" action="/oauth/authorize">
+        <input type="hidden" name="user_oauth_approval" value="true" />
+        权限：<input type="radio" th:name="'scope.'+${scope}" value="true" checked="checked" readonly="readonly" /> <span th:text="${scope}"></span>
+        <br />
+        <button class="btn" type="submit">同意/授权</button>
+    </form>
+
+</div>
+<nav th:replace="include/footer :: footer"></nav>
+</body>
+</html>

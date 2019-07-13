@@ -1,0 +1,45 @@
+server:
+  port: 8888
+
+eureka:
+  instance:
+    hostname: registry
+    prefer-ip-address: true
+    metadata-map:
+      user.name: ${security.user.name}
+      user.password: ${security.user.password}
+  client:
+    service-url:
+      defaultZone: http://user:${REGISTRY_SERVER_PASSWORD:password}@registry:8761/eureka
+
+spring:
+  profiles:
+    active: native
+  zipkin:
+    baseUrl: http://1270.0.0.1:9411/
+  cloud:
+    bus:
+      enabled: false
+      trace:
+        enabled: false
+    config:
+      name: com.github.zengfr.conuniframework.cloud.service.config
+      profile: dev
+      fail-fast: true
+      server:
+        native:
+          search-locations: classpath:/com.github.zengfr.conuniframework.cloud.service.config
+        bootstrap: true
+  retry:
+    max-attempts: 10000
+    max-interval: 3000
+security:
+  ignored: /**
+  basic:
+    enabled: false
+  user:
+    name: user
+    password: ${CONFIG_SERVER_PASSWORD:password}
+management:
+  security:
+    enabled: false

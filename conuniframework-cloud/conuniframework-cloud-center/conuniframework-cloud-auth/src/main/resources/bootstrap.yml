@@ -1,0 +1,9 @@
+spring:
+  profiles:
+    include: auth
+  application:
+    name: auth
+  main:
+    allow-bean-definition-overriding: true
+
+

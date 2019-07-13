@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"></meta>
+    <title>Spring Cloud Administrator</title>
+
+</head>
+<body>
+<nav th:replace="include/header :: header"></nav>
+<div id="main" class="container">
+    <form class="form-horizontal user_form" th:action="@{/signin}" method="post">
+        <div class="form-group">
+            <label class="col-sm-1 control-label">用&ensp;户&ensp;名: </label>
+            <div class="col-sm-5">
+                <input class="form-control" placeholder="用户名" name="username"
+                       datatype="/[a-zA-Z_0-9]{6,20}/g" sucmsg="用户名验证通过！" nullmsg="请填写用户名！" errormsg="请填写用户名！" />
+            </div>
+            <div class="col-sm-6 control-label" style="text-align: left"></div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-1 control-label">密&#12288;&#12288;码: </label>
+            <div class="col-sm-5">
+                <input class="form-control" placeholder="请填写密码" type="password" name="password"
+                       datatype="/[a-zA-Z_0-9]{6,20}/g" sucmsg="密码验证通过！" nullmsg="请填写密码！" errormsg="请填写密码！" />
+            </div>
+            <div class="col-sm-6 control-label" style="text-align: left"></div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-1 col-sm-10">
+                <button type="submit" class="btn btn-default"> 登 陆 </button>
+            </div>
+        </div>
+    </form>
+</div>
+<input type="hidden" id="error" th:value="${userModel} and ${userModel.loginError}?${userModel.errorMsg}:''" />
+<nav th:replace="include/footer :: footer"></nav>
+</body>
+<script type="text/javascript">
+
+</script>
+</html>

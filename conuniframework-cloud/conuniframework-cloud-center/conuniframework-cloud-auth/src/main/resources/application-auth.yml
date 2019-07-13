@@ -1,0 +1,73 @@
+server:
+  context-path: /uaa
+  port: 5000
+  servlet:
+    session:
+      cookie:
+        name: OAUTH2_SERVER_SESSION
+security:
+  basic:
+    enabled: false
+  qqoauth2:
+    client:
+      client-id: authServer
+      client-secret: 12345678
+      grant-type: client_credentials
+      scope: all
+      user-authorization-uri: http://auth:5000/oauth/authorize ##授权码认证方式需要
+      access-token-uri: http://auth:5000/oauth/token ##密码模式需要用到的获取 token 的接口
+
+    resource:
+      id: authServer
+      user-info-uri: http://auth:5000/user/current
+
+    authorization:
+      check-token-access: http://auth:5000/oauth/check_token ##当此服务端接收到来自客户端端的请求后，需要拿着请求中的 token 到认证服务端做 token 验证，就是请求的这个接口
+
+management:
+  security:
+    enabled: false
+  context-path: /mgmt
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://registry:8761/eureka  ## 注册到 eureka
+  instance:
+    health-check-url-path: ${server.context-path}${management.context-path}/health
+    status-page-url-path: ${server.context-path}${management.context-path}/info
+    metadata-map:
+      management.context-path: ${server.context-path}${management.context-path}
+spring:
+  mvc:
+    favicon:
+      enabled=false:
+    static-path-pattern: /**
+    resources:
+      static-locations: classpath:/static/
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+  thymeleaf:
+    cache: false
+    mode: HTML5
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    suffix: .html
+    servlet:
+      content-type: text/html
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    dialect: org.hibernate.dialect.MySQL5Dialect
+    url: jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&characterEncoding=utf8&characterSetResults=utf8&serverTimezone=UTC
+    username: root
+    password: 1234567
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+

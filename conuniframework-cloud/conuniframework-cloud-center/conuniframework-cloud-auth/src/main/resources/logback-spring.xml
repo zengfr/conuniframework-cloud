@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <jmxConfigurator/>
+    <root level="warn">
+    </root>
+    <logger name="org.springframework" level="warn" additivity="true"/>
+    <logger name="com.netflix" level="warn" additivity="true"/>
+    <logger name="io.zipkin" level="warn" additivity="true"/>
+    <logger name="org.springframework.security" level="debug" additivity="true"/>
+    <logger name="org.springframework.jdbc.core" level="debug" additivity="true"/>
+</configuration>

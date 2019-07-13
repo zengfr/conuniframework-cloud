@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8"/>
+    <title>登录</title>
+</head>
+<body>
+<!--登录框-->
+<div>
+    <form class="login-form">
+        <!--二维码登录-->
+        <div id="weixin"></div>
+    </form>
+</div>
+<!--微信官方提供的生成二维码的js-->
+<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+</body>
+<script> var obj = new WxLogin({self_redirect: true, id: "weixin", appid: "wx7287a60bb700fd21",
+#微信开放平台中申请的appid
+scope: "snsapi_login", #固定参数，可以参照微信开放平台中的文档
+redirect_uri: "http://www.txjava.cn/login"
+#注意：后台在host文件中添加：“127.0
+.0
+.1
+www.txjava.cn”，后台springboot项目的端口号为80
+})
+; </script>
+</html>
